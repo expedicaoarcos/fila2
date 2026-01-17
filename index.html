@@ -187,20 +187,24 @@ async function consultar() {
 </footer>
 
 <script>
-	const ads = document.querySelectorAll(".ads-slider a");
-	let index = 0;
-	
-	function trocarAd() {
-	    ads.forEach(ad => ad.classList.remove("active"));
-	    ads[index].classList.add("active");
-	
-	    index = (index + 1) % ads.length;
-	}
-	
-	// inicia
-	trocarAd();
-	setInterval(trocarAd, 2000); // 2 segundos
+document.addEventListener("DOMContentLoaded", function () {
 
+    const ads = document.querySelectorAll(".ads-slider a");
+    let index = 0;
+
+    if (ads.length === 0) return;
+
+    function trocarAd() {
+        ads.forEach(ad => ad.classList.remove("active"));
+        ads[index].classList.add("active");
+        index = (index + 1) % ads.length;
+    }
+
+    trocarAd();                 // mostra o primeiro
+    setInterval(trocarAd, 2000); // troca a cada 2s
+
+});
 </script>
+
 </body>
 </html>
