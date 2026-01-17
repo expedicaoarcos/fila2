@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Consulta Fila de Carregamento - CSN Arcos</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .container {
+        margin: 30px auto;
+        width: 92%;
+        max-width: 420px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+	
+	input {
+		padding: 14px;
+		font-size: 18px;
+		border-radius: 8px;
+		border: 1px solid #ccc;
+		margin-top: 10px;
+	}
+
+	button {
+		padding: 14px;
+		margin-top: 15px;
+		font-size: 18px;
+		background: #007bff;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+    button:active {
+        background: #005bd1;
+    }
+
+    #resultado {
+        margin-top: 25px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+	
+	.footer {
+		margin-top: 30px;
+		padding: 15px 10px;
+		background: #f7f7f7;
+		border-top: 1px solid #ddd;
+	}
+
+	.patrocinadores {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		padding: 15px 10px;
+		background: #f5f5f5;
+		flex-wrap: wrap;
+	}
+
+	.patrocinadores img {
+		height: 40px;
+		max-width: 140px;
+		object-fit: contain;
+		transition: transform 0.2s ease;
+	}
+
+	.patrocinadores a:hover img {
+		transform: scale(1.05);
+	}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Consulta de Fila - CSN Arcos</h2>
+    <p>Digite sua <b>placa</b> :</p>
+
+    <input id="txt" placeholder="Ex: ABC1234" />
+
+    <button onclick="consultar()">Consultar</button>
+
+    <p id="resultado"></p>
+</div>
+    
+<script>
+async function consultar() {
+    document.getElementById("resultado").innerText = "Consultando...";
+
+    try {
+        //const res = await fetch("https://expedicaoarcos.github.io/fila/fila.json?nocache=" + Date.now());
+        const res = await fetch("fila.json?nocache=" + Date.now());
+        const dados = await res.json();
+
+        let chave = document.getElementById("txt").value.trim().toUpperCase();
+
+        // Buscar SOMENTE pela placa
+        let item = dados.find(x => x.placa && x.placa.toUpperCase() === chave);
+
+        if (!item) {
+            document.getElementById("resultado").innerText = "Placa não encontrada na fila.";
+            return;
+        }
+
+        //let pos = dados.indexOf(item) + 1;
+        let pos = item.posicao;
+
+        document.getElementById("resultado").innerHTML =
+            `🚚 <b>Posição na fila:</b> <span style='font-size:26px; color:#007bff;'>${pos}</span><br><br>
+             📦 <b>Produto:</b> ${item.produto}<br>
+             🏷️ <b>Tipo:</b> ${item.tipo}`;
+            
+    } catch (e) {
+        document.getElementById("resultado").innerText = "Erro ao acessar dados.";
+    }
+}
+</script>
+	
+<footer class="patrocinadores">
+	<a href="https://wa.me/5531999999999" target="_blank">
+		<img src="img/patrocinador1.jpg" alt="Transportadora X">
+	</a>
+
+	<a href="https://www.transportadoray.com.br" target="_blank">
+		<img src="img/patrocinador2.jpg" alt="Transportadora Y">
+	</a>
+
+	<a href="https://wa.me/5531888888888" target="_blank">
+		<img src="img/patrocinador3.jpg" alt="Despachante Z">
+	</a>
+</footer>
+</body>
+</html>
