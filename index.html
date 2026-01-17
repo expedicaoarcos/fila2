@@ -91,6 +91,44 @@
 	        max-width: 90%;
 	    }
 	}
+		
+	.ads {
+	    margin-top: 25px;
+	    background: #f5f5f5;
+	    padding: 15px 0 10px;
+	    overflow: hidden;
+	}
+	
+	.ads-track {
+	    display: flex;
+	    gap: 40px;
+	    animation: slide 18s linear infinite;
+	    align-items: center;
+	}
+	
+	.ads-track a {
+	    flex: 0 0 100%;
+	    text-align: center;
+	}
+	
+	.ads-track img {
+	    height: 55px;
+	    max-width: 90%;
+	    object-fit: contain;
+	}
+	
+	.ads-label {
+	    margin-top: 8px;
+	    font-size: 12px;
+	    color: #777;
+	}
+	
+	/* Animação */
+	@keyframes slide {
+	    0%   { transform: translateX(0); }
+	    33%  { transform: translateX(-100%); }
+	    66%  { transform: translateX(-200%); }
+	}
 
 </style>
 
@@ -141,18 +179,23 @@ async function consultar() {
 }
 </script>
 	
-<footer class="patrocinadores">
-	<a href="https://www.google.com/" target="_blank">
-		<img src="img/patrocinador1.jpg" alt="Transportadora targets">
-	</a>
+<footer class="ads">
+    <div class="ads-track">
+        <a href="https://wa.me/5531999999999" target="_blank" rel="noopener">
+            <img src="img/patrocinador1.webp" alt="Transportadora X">
+        </a>
 
-	<a href="https://www.csn.com.br/" target="_blank">
-		<img src="img/patrocinador2.jpg" alt="Transportadora Y">
-	</a>
-	
-	<a href="https://wa.me/5537988023361" target="_blank">
-		<img src="img/patrocinador3.jpg" alt="Despachante Z">
-	</a>
+        <a href="https://www.transportadoray.com.br" target="_blank" rel="noopener">
+            <img src="img/patrocinador2.webp" alt="Transportadora Y">
+        </a>
+
+        <a href="https://wa.me/5531888888888" target="_blank" rel="noopener">
+            <img src="img/patrocinador3.webp" alt="Despachante Z">
+        </a>
+    </div>
+
+    <div class="ads-label">Patrocinadores</div>
 </footer>
+	
 </body>
 </html>
